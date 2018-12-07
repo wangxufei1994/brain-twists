@@ -7,7 +7,9 @@
         </div>
         <div class="btn-group">
           <mt-button type="primary" size="large" @click="login">登录</mt-button>
-          <mt-button type="primary" size="large" class="btn-register" @click="register">注册</mt-button>
+          <p>
+            <a href="javascript:;" @click="register">点击，注册账号</a>
+          </p>
         </div>
       </div>
   </div>
@@ -59,6 +61,17 @@ export default {
         });
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    if(localStorage.getItem("userInfo")){
+      next(vm=>{
+        vm.$router.replace({
+          name:"home.category"
+        })
+      })
+    }else{
+      next();
+    }
   }
 }
 </script>
@@ -66,14 +79,5 @@ export default {
 <style scoped>
 .form{
   margin: 80px 0 40px 0;
-}
-.btn-group{
-  padding: 0 15px;
-}
-.btn-group button{
-  margin-bottom:20px;
-}
-.btn-register{
-  background:#00FF7F;
 }
 </style>

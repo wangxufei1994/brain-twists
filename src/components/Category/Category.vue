@@ -1,7 +1,7 @@
 <template>
   <div class="category">
     <mt-swipe :auto="5000" class="container-swipe">
-        <mt-swipe-item v-for="(item,index) in bannerArr" v-key="index" >
+        <mt-swipe-item v-for="(item,index) in bannerArr" :key="index" >
           <img :src="item" />
         </mt-swipe-item>
     </mt-swipe>

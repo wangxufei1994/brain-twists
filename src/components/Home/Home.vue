@@ -18,9 +18,17 @@
 export default {
   data() {
     return {
-      selected:'category'
+      selected:''
     }
   },
+  created() {
+    console.log(this.$route.name);
+    if(this.$route.name=="home.my"){
+      this.selected="my"
+    }else if(this.$route.name=="home.category"){
+      this.selected="category"
+    }
+},
   watch:{
     selected(){
       let name="";
