@@ -36,16 +36,36 @@ export default {
             password
         };
         if(username===""){
-            this.$toast("账号不能为空");
+            this.$toast({
+              message:"账号不能为空",
+              duration:1000
+            });
         }else if(password===""){
-            this.$toast("密码不能为空");
+            this.$toast({
+              message:"密码不能为空",
+              duration:1000
+            });
         }else if(password_===""){
-            this.$toast("确认密码不能为空");
+            this.$toast({
+              message:"确认密码不能为空",
+              duration:1000
+            });
         }else if(password!==password_){
-            this.$toast("两次输入的密码不一致");
+            this.$toast({
+              message:"两次输入的密码不一致",
+              duration:1000
+            });
         }else{
             this.$axios.post("/reg",data).then((res)=>{
-                console.log(res);
+                this.$toast({
+                  message:res.data.msg,
+                  duration:1000
+                })
+                if(res.data.code===1){
+                  setTimeout(() => {
+                    this.$router.go(-1);
+                  }, 1000);
+                }
             })
         }
     }

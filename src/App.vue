@@ -16,7 +16,5 @@ export default {
 </script>
 
 <style>
-  .container{
-    margin-top: 40px;
-  }
+
 </style>

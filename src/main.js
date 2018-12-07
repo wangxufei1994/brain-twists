@@ -13,6 +13,8 @@ Vue.use(MintUI)
 
 // 引入公共样式表
 import './assets/css/reset.css'
+//引入iconfont
+import'./assets/css/iconfont.css'
 
 // 引入axios
 import Axios from 'axios'
