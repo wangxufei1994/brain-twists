@@ -3,7 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+//图片压缩
+import lrz from 'lrz'
 //引入 mint-ui
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -38,7 +39,7 @@ Axios.interceptors.response.use((res)=>{
   // 对响应错误做点什么
   return Promise.reject(err);
 });
-Axios.defaults.baseURL="http://192.168.5.146:8080/apis/"
+Axios.defaults.baseURL="http://192.168.0.102:8080/apis/"
 Vue.prototype.$axios=Axios
 //挂载axios
 Vue.use(Axios)

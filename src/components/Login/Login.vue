@@ -80,4 +80,10 @@ export default {
 .form{
   margin: 80px 0 40px 0;
 }
+p{
+  text-align:right;
+}
+p a{
+  font-size: 12px;
+}
 </style>
