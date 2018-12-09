@@ -24,6 +24,11 @@ body {font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-s
 hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid #cacaca;}
 
 /* 自定义添加的公共样式 */
+body{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
 .uploadInput{
     display: none;
 }

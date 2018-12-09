@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-view></router-view>
-    <mt-tabbar v-model="selected">
+    <mt-tabbar v-model="selected" @click.native="selectChange">
       <mt-tab-item id="category">
         <i slot="icon" class="iconfont icon-htmal5icon06"></i>
         主页
@@ -22,24 +22,25 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.name);
-    if(this.$route.name=="home.my"){
+    if(this.$route.name==="home.my"){
       this.selected="my"
-    }else if(this.$route.name=="home.category"){
+    }else if(this.$route.name==="home.category" || this.$route.name=="home.category.app"){
       this.selected="category"
     }
-},
-  watch:{
-    selected(){
-      let name="";
-      if(this.selected==="category"){
-        name="home.category";
-      }else if(this.selected==="my"){
-        name="home.my"
-      }
-      this.$router.replace({
-        name:name
-      })
+  },
+  methods:{
+    selectChange(){
+      this.$nextTick(()=>{
+        let name="";
+        if(this.selected==="category"){
+          name="home.category";
+        }else if(this.selected==="my"){
+          name="home.my"
+        }
+        this.$router.replace({
+          name:name
+        })
+      });
     }
   }
 }
