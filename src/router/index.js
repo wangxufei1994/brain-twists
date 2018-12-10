@@ -5,7 +5,10 @@ import Register from '@/components/Register/Register'
 import Home from '@/components/Home/Home'
 import Category from '@/components/Category/Category'
 import My from '@/components/My/My'
-import CategoryApp from '@/components/CategoryApp/CategoryApp'
+import Twists from '@/components/Twists/Twists'
+import Brain from '@/components/Brain/Brain'
+import Joke from '@/components/Joke/Joke'
+import Riddle from '@/components/Riddle/Riddle'
 
 Vue.use(Router)
 
@@ -28,13 +31,25 @@ export default new Router({
         name:"home.category",
         component:Category
       },{
-        path:"category/app/:type",
-        name:"home.category.app",
-        component: CategoryApp
+        path:"twists",
+        name:"home.category.twists",
+        component: Twists
       },{
         path:"my",
         name:"home.my",
         component:My
+      },{
+        path:"brain",
+        name:"home.category.brain",
+        component:Brain
+      },{
+        path:"joke",
+        name:"home.category.joke",
+        component:Joke
+      },{
+        path:"riddle",
+        name:"home.category.riddle",
+        component:Riddle
       }]
     }
   ]

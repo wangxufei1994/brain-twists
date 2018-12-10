@@ -1,7 +1,9 @@
 <template>
-  <div class="category-app" v-if="list.length>0">
-      <mt-header fixed :title="typeText"></mt-header>
-      <div class="question" v-show="!answerFlag">
+  <div>
+      <mt-header fixed title="谜语">
+        <mt-button icon="back" slot="left" @click="back">返回</mt-button>
+      </mt-header>
+      <div class="question">
           {{currentIndex+1}}、{{list[currentIndex].question}}
       </div>
       <div class="answer" v-show="answerFlag">
@@ -15,7 +17,7 @@
       <div class="btn-group">
           <mt-button type="primary" size="large" @click="seeAnswer" v-show="!answerFlag && !overFlag">查看答案</mt-button>
           <mt-button type="primary" size="large" @click="seeNext" v-show="answerFlag && !overFlag">下一题</mt-button>
-          <mt-button type="danger" size="large" @click="over" v-if="overFlag">结束</mt-button>
+          <mt-button type="danger" size="large" @click="back" v-if="overFlag">结束</mt-button>
       </div>
   </div>
 </template>
@@ -24,33 +26,14 @@
   export default {
    data() {
      return {
-         type:"",
-         typeText:"",
          currentIndex:0,
-         list:[],
+         list:[{question:'',tip:'',answer:''}],
          answerFlag:false,
          overFlag:false
      }
    },
    created() {
-       //type ===1 脑筋急转弯   type==2 笑话   type==3 谜语 
-       const _this=this;
-       this.type=this.$route.params.type;
-       switch (Number(this.type)) {
-           case 1:
-               _this.typeText="脑筋急转弯"
-               break;
-           case 2:
-               _this.typeText="笑话"
-               break;
-           case 2:
-               _this.typeText="谜语"
-               break;
-           default:
-               break;
-       }
-       this.$axios.post('/getList',{type:this.type}).then(res=>{
-           console.log("加载上数据")
+       this.$axios.post('/getRiddle').then(res=>{
            this.list=res.data.data;
        });
    },
@@ -67,7 +50,7 @@
         this.currentIndex+=1;
         this.answerFlag=!this.answerFlag;
     },
-    over(){
+    back(){
         this.$router.go(-1);
     }
    }
@@ -81,10 +64,10 @@
     font-size: 18px;
 }
 .btn-group{
-    margin-top: 80px;
+    margin-top: 60px 0 80px;
 }
 .answer{
-    margin-top: 120px;
+    margin-top: 40px;
     padding: 0 15px;
     color: #00aff0;
 }
@@ -93,8 +76,6 @@
 }
 .tip{
     margin-top: 40px;
-}
-.btn-group{
-    margin-bottom: 80px;
+    line-height:24px;
 }
 </style>

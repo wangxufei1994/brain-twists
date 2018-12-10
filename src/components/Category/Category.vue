@@ -7,21 +7,27 @@
     </mt-swipe>
     <ul class="grid">
       <li>
-        <router-link :to="{name:'home.category.app',params:{type:1}}">
+        <router-link :to="{name:'home.category.twists'}">
           <i class="iconfont icon-htmal5icon06"></i>
           <p>脑筋急转弯</p>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'home.category.app',params:{type:2}}">
+        <router-link :to="{name:'home.category.joke'}">
           <i class="iconfont icon-htmal5icon06"></i>
           <p>笑话</p>
         </router-link>
       </li>
       <li>
-        <router-link :to="{name:'home.category.app',params:{type:3}}">
+        <router-link :to="{name:'home.category.riddle'}">
           <i class="iconfont icon-htmal5icon06"></i>
           <p>谜语</p>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'home.category.brain'}">
+          <i class="iconfont icon-htmal5icon06"></i>
+          <p>头脑王者</p>
         </router-link>
       </li>
     </ul>
@@ -54,6 +60,9 @@ export default {
 
 .grid{
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+	align-items: center;
   margin-top: 10px;
 }
 .grid li{
@@ -64,6 +73,7 @@ export default {
   display: block;
   width: 100%;
   height: 100%;
+  color:#333333;
 }
 .grid .iconfont{
   font-size: 34px;

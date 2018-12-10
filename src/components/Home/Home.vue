@@ -22,9 +22,10 @@ export default {
     }
   },
   created() {
-    if(this.$route.name==="home.my"){
+    const routeName=this.$route.name;
+    if(/^(home.my).*$/.test(routeName)){
       this.selected="my"
-    }else if(this.$route.name==="home.category" || this.$route.name=="home.category.app"){
+    }else if(/^(home.category).*$/.test(routeName)){
       this.selected="category"
     }
   },
