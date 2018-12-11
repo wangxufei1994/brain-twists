@@ -68,31 +68,33 @@ export default {
       this.$refs.uploadInput.click();
     },
     upload(event){
-      this.$indicator.open({
-        text:"上传中",
-        spinnerType: 'fading-circle'
-      });
-      lrz(event.target.files[0],{width:300,height:300}).then(rlt=>{
-        //上传
-        let formData=new FormData();
-        formData.append("id",this.user.id)
-        formData.append("file",rlt.file)
-        const instance=this.$axios.create({
-          withCredentials:true
-        })
-        let config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+      if(event.target.files[0]){
+        this.$indicator.open({
+          text:"上传中",
+          spinnerType: 'fading-circle'
+        });
+        lrz(event.target.files[0],{width:300,height:300}).then(rlt=>{
+          //上传
+          let formData=new FormData();
+          formData.append("id",this.user.id)
+          formData.append("file",rlt.file)
+          const instance=this.$axios.create({
+            withCredentials:true
+          })
+          let config = {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          };
+          instance.post('/upload',formData,config).then(res=>{
+            if(res.data.code===1){
+              this.user.headImg=res.data.headImg;
+              localStorage.setItem("userInfo",JSON.stringify(this.user))
+              this.$indicator.close();
             }
-        };
-        instance.post('/upload',formData,config).then(res=>{
-          if(res.data.code===1){
-            this.user.headImg=res.data.headImg;
-            localStorage.setItem("userInfo",JSON.stringify(this.user))
-            this.$indicator.close();
-          }
-        })
-      });
+          })
+        });
+      }
     }
   }
 }
