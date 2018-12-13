@@ -9,6 +9,8 @@ import Twists from '@/components/Twists/Twists'
 import Brain from '@/components/Brain/Brain'
 import Joke from '@/components/Joke/Joke'
 import Riddle from '@/components/Riddle/Riddle'
+import Diary from '@/components/Diary/Diary'
+import DiaryAdd from '@/components/Diary/DiaryAdd'
 
 Vue.use(Router)
 
@@ -50,6 +52,14 @@ export default new Router({
         path:"riddle",
         name:"home.category.riddle",
         component:Riddle
+      },{
+        path:"diary",
+        name:"home.category.diary",
+        component:Diary
+      },{
+        path:"diaryAdd",
+        name:"home.category.diaryAdd",
+        component:DiaryAdd
       }]
     }
   ]

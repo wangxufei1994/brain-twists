@@ -6,28 +6,10 @@
         </mt-swipe-item>
     </mt-swipe>
     <ul class="grid">
-      <li>
-        <router-link :to="{name:'home.category.twists'}">
-          <i class="iconfont icon-naojinjizhuanwan"></i>
-          <p>脑筋急转弯</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{name:'home.category.joke'}">
-          <i class="iconfont icon-xiao-"></i>
-          <p>笑话</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{name:'home.category.riddle'}">
-          <i class="iconfont icon-caimiyu"></i>
-          <p>谜语</p>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{name:'home.category.brain'}">
-          <i class="iconfont icon-danao"></i>
-          <p>头脑王者</p>
+      <li v-for="(item,index) in gridArr" :key="index">
+        <router-link :to="item.link">
+          <i class="iconfont" :class="item.iconfont"></i>
+          <p>{{item.title}}</p>
         </router-link>
       </li>
     </ul>
@@ -38,7 +20,28 @@
 export default {
   data() {
     return {
-      bannerArr:[]
+      bannerArr:[],
+      gridArr:[{
+        title:"脑筋急转弯",
+        iconfont:"icon-naojinjizhuanwan",
+        link:{name:'home.category.twists'}
+      },{
+        title:"笑话",
+        iconfont:"icon-xiao-",
+        link:{name:'home.category.joke'}
+      },{
+        title:"谜语",
+        iconfont:"icon-caimiyu",
+        link:{name:'home.category.riddle'}
+      },{
+        title:"头脑王者",
+        iconfont:"icon-danao",
+        link:{name:'home.category.brain'}
+      },{
+        title:"日记本",
+        iconfont:"icon-danao",
+        link:{name:'home.category.diary'}
+      }]
     }
   },
   created() {
@@ -88,9 +91,10 @@ export default {
   justify-content: center;
 	align-items: center;
   margin-top: 10px;
+  justify-content: left;
 }
 .grid li{
-  flex:1;
+  flex:0 0 25%;
   text-align: center;
 }
 .grid li a{
