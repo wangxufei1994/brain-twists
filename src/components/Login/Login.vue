@@ -1,6 +1,7 @@
 <template>
   <div class="login">
         <mt-header fixed title="登录"></mt-header>
+        <img src="../../assets/img/logo.png" class="logo" />
         <div class="form">
           <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
           <mt-field label="密码" placeholder="请输入密码" type="password" v-model="password"></mt-field>
@@ -77,8 +78,13 @@ export default {
 </script>
 
 <style scoped>
+.logo{
+  margin:80px auto 0;
+  display:block;
+  width:60px;
+}
 .form{
-  margin: 80px 0 40px 0;
+  margin: 40px 0 40px 0;
 }
 p{
   text-align:right;

@@ -39,7 +39,7 @@ Axios.interceptors.response.use((res)=>{
   // 对响应错误做点什么
   return Promise.reject(err);
 });
-Axios.defaults.baseURL="http://118.89.233.19/"
+Axios.defaults.baseURL="http://192.168.5.146:8080/apis/"
 Vue.prototype.$axios=Axios
 //挂载axios
 Vue.use(Axios)
@@ -47,6 +47,20 @@ Vue.prototype.$qs=Qs
 
 
 Vue.config.productionTip = false
+
+
+//登录权限
+router.beforeEach((to,from,next)=>{
+  let userInfo=localStorage.getItem("userInfo");
+  if(userInfo || to.name==="login" || to.name==="register"){
+    next();
+  }else{
+    router.replace({
+      name:"login"
+    })
+  }
+})
+
 
 /* eslint-disable no-new */
 new Vue({
