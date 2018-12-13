@@ -11,9 +11,9 @@
       </mt-palette-button>
 
       <!-- 列表 -->
-      <div v-show="!hasData" class="null-data">没有数据</div>
-      <div v-show="hasData">
-        <mt-cell  title="标题" label="描述信息" is-link></mt-cell>
+      <div v-show="list.length==0" class="null-data">没有数据</div>
+      <div v-show="list.length>0" class="diary-list">
+        <mt-cell v-for="(item,index) in list" :key="index" :to="{name:'home.category.diaryAdd',query:{date:item.date}}" :title="item.date" :label="item.content" is-link></mt-cell>
       </div>
   </div>
 </template>
@@ -22,8 +22,16 @@
 export default {
   data() {
     return {
-      hasData:false
+      list:[]
     }
+  },
+  created() {
+    let data={
+      id:JSON.parse(localStorage.getItem("userInfo")).id
+    }
+    this.$axios.post("/getDiaryList",data).then(res=>{
+      this.list=res.data.data;
+    })
   },
   methods:{
     addDiary(){
@@ -49,5 +57,8 @@ export default {
   text-align: center;
   color:#AEAEAE;
   margin-top: 80px;
+}
+.diary-list{
+  margin-top: 50px;
 }
 </style>

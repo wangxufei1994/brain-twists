@@ -39,7 +39,7 @@ Axios.interceptors.response.use((res)=>{
   // 对响应错误做点什么
   return Promise.reject(err);
 });
-Axios.defaults.baseURL="http://192.168.5.146:8080/apis/"
+Axios.defaults.baseURL="http://192.168.0.105:8080/apis/"
 Vue.prototype.$axios=Axios
 //挂载axios
 Vue.use(Axios)
