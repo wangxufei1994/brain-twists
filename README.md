@@ -1,4 +1,4 @@
-# brain-twists
+# fun-box
 
 > A Vue.js project
 
