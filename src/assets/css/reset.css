@@ -39,3 +39,14 @@ body{
 .btn-group button{
     margin-bottom:20px;
 }
+
+.diary .mint-cell-title{
+    width:100%;
+}
+.diary .mint-cell-label{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display:block;
+    width:94%;
+}

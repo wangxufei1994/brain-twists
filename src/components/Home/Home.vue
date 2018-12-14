@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-view></router-view>
-    <mt-tabbar v-model="selected" @click.native="selectChange">
+    <mt-tabbar v-model="selected" @click.native="selectChange" v-show="isShow">
       <mt-tab-item id="category">
         <i slot="icon" class="iconfont icon-htmal5icon06"></i>
         主页
@@ -18,7 +18,9 @@
 export default {
   data() {
     return {
-      selected:''
+      selected:'',
+      isShow:true,
+      clientHeight:document.body.clientHeight
     }
   },
   created() {
@@ -27,6 +29,15 @@ export default {
       this.selected="my"
     }else if(/^(home.category).*$/.test(routeName)){
       this.selected="category"
+    }
+  },
+  mounted() {
+    window.onresize=()=>{
+      if(document.body.clientHeight<this.clientHeight){
+        this.isShow=false;
+      }else{
+        this.isShow=true;
+      }
     }
   },
   methods:{

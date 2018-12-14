@@ -23,7 +23,7 @@ export default {
       bannerArr:[],
       gridArr:[{
         title:"脑筋急转弯",
-        iconfont:"icon-naojinjizhuanwan",
+        iconfont:"icon-zhuanjie",
         link:{name:'home.category.twists'}
       },{
         title:"笑话",
@@ -39,7 +39,7 @@ export default {
         link:{name:'home.category.brain'}
       },{
         title:"日记本",
-        iconfont:"icon-danao",
+        iconfont:"icon-notepad",
         link:{name:'home.category.diary'}
       }]
     }
