@@ -65,7 +65,13 @@ export default {
       }
       this.$axios.post("/diaryAdd",data).then(res=>{
         if(res.data.code===1){
-          this.$toast("提交成功")
+          this.$toast({
+            duration:1000,
+            message:"提交成功"
+          })
+          setTimeout(() => {
+            this.$router.go(-1)
+          }, 1000);
         }
       })
     }
