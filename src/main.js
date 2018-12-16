@@ -39,7 +39,7 @@ Axios.interceptors.response.use((res)=>{
   // 对响应错误做点什么
   return Promise.reject(err);
 });
-Axios.defaults.baseURL="http://118.89.233.19/"
+Axios.defaults.baseURL="http://www.wangxufei.cn"
 Vue.prototype.$axios=Axios
 //挂载axios
 Vue.use(Axios)

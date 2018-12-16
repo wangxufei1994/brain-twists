@@ -1,6 +1,6 @@
 <template>
   <div class="category">
-    <mt-swipe :auto="5000" class="container-swipe">
+    <mt-swipe :auto="6000" :speed="1000" class="container-swipe">
         <mt-swipe-item v-for="(item,index) in bannerArr" :key="index" >
           <img :src="item" @click="goApp(index)" />
         </mt-swipe-item>

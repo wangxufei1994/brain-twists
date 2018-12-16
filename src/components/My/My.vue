@@ -109,7 +109,7 @@ img{
   width: 70px;
   height:70px;
   border-radius:50%;
-  border:1px solid #ff0000;
+  border:1px solid #F4F4F4;
   margin:20px auto;
 }
 .user-info{
