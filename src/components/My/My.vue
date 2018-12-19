@@ -1,6 +1,6 @@
 <template>
   <div class="my">
-      <img :src="user.headImg" alt="" @click="uploadImg">
+      <img :src="user.headImg" alt="">
       <input type="file" ref="uploadInput" class="uploadInput" @change="upload" accept="image/*"/>
       <div class="user-info">
         <mt-field label="昵称" v-model="user.nick" readonly disableClear @click.native="changeName"></mt-field>
@@ -9,6 +9,7 @@
           :actions="sexActions"
           v-model="sexVisible">
         </mt-actionsheet>
+        <mt-cell title="头像修改" @click.native="uploadImg"  is-link></mt-cell>
       </div>
       <div class="btn-group">
         <mt-button type="danger" size="large" @click="logout">退出</mt-button>
@@ -64,7 +65,7 @@ export default {
       })
     },
     uploadImg(){
-      //点击图片，触发事件
+      //点击修改头像触发事件
       this.$refs.uploadInput.click();
     },
     upload(event){
