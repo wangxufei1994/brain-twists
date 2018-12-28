@@ -34,3 +34,6 @@ hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid 
 .btn-group button{
     margin-bottom:20px;
 }
+.isActive .mint-cell-allow-right::after{
+    transform:translateY(-50%) rotate(135deg);
+}

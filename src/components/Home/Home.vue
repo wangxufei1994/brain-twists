@@ -1,12 +1,20 @@
 <template>
   <div class="home">
-    <router-view></router-view>
-    <mt-tabbar v-model="selected">
-      <mt-tab-item id="category">
-        <i slot="icon" class="iconfont icon-htmal5icon06"></i>
-        主页
+    <router-view class="container"></router-view>
+    <mt-tabbar v-model="selected" @click.native="select">
+      <mt-tab-item id="home.status">
+        <i slot="icon" class="iconfont icon-zhinanzhen"></i>
+        实时状态
       </mt-tab-item>
-      <mt-tab-item id="my">
+      <mt-tab-item id="home.source">
+        <i slot="icon" class="iconfont icon-liebiao"></i>
+        资源查询
+      </mt-tab-item>
+      <mt-tab-item id="home.inspect">
+        <i slot="icon" class="iconfont icon-xunjian"></i>
+        巡检
+      </mt-tab-item>
+      <mt-tab-item id="home.my">
         <i slot="icon" class="iconfont icon-wode"></i>
         我的
       </mt-tab-item>
@@ -22,31 +30,38 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.name);
-    if(this.$route.name=="home.my"){
-      this.selected="my"
-    }else if(this.$route.name=="home.category"){
-      this.selected="category"
+    let name=this.$route.name;
+    switch (name) {
+      case "home.motor":
+        name="home.source"
+        break;
+      case "home.device":
+        name="home.device"
+        break;
+      default:
+        break;
     }
-},
-  watch:{
-    selected(){
-      let name="";
-      if(this.selected==="category"){
-        name="home.category";
-      }else if(this.selected==="my"){
-        name="home.my"
-      }
+    this.selected=name;
+  },
+  methods: {
+    select(){
+      let name=this.selected;
       this.$router.replace({
         name:name
       })
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 .iconfont{
   font-size: 22px;
+}
+.container{
+  margin:40px 0 55px;
+}
+.mint-tabbar{
+  position: fixed;
 }
 </style>

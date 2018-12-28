@@ -1,14 +1,10 @@
 <template>
   <div class="my">
-      <img :src="user.headImg" alt="" @click="uploadImg">
-      <input type="file" ref="uploadInput" class="uploadInput" @change="upload" accept="image/*"/>
+      <mt-header fixed title="个人中心"></mt-header>
+      <img :src="user.imgUrl" alt="">
       <div class="user-info">
-        <mt-field label="昵称" v-model="user.nick" readonly disableClear @click.native="changeName"></mt-field>
-        <mt-field label="性别" v-model="user.sex===1?'男':'女'" readonly disableClear @click.native="changeSex"></mt-field>
-        <mt-actionsheet
-          :actions="sexActions"
-          v-model="sexVisible">
-        </mt-actionsheet>
+        <mt-field label="姓名" v-model="user.name" readonly disableClear></mt-field>
+        <mt-field label="职位" v-model="user.roleList" readonly disableClear></mt-field>
       </div>
       <div class="btn-group">
         <mt-button type="danger" size="large" @click="logout">退出</mt-button>
@@ -20,9 +16,7 @@
 export default {
   data() {
     return {
-        user:{},
-        sexVisible:false,
-        sexActions:[{name:"男",method:this.editSex},{name:"女",method:this.editSex}]
+        user:{}
     }
   },
   created() {
@@ -33,65 +27,6 @@ export default {
       localStorage.removeItem("userInfo");
       this.$router.replace({
         name:"login"
-      });
-    },
-    changeName(){
-      this.$messagebox.prompt('请输入姓名').then(({ value, action }) => {
-        if(action==="confirm"){
-          this.$axios.post("/editNick",{id:this.user.id,value:value}).then(res=>{
-            if(res.data.code===1){
-              this.$toast({
-                duration:1000,
-                message:"修改成功"
-              })
-              this.user.nick=value;
-              localStorage.setItem("userInfo",JSON.stringify(this.user))
-            }
-          })
-        }
-      })
-    },
-    changeSex(){
-      this.sexVisible=true;
-    },
-    editSex(i,j){
-      this.$axios.post('/editSex',{id:this.user.id,value:j+1}).then(res=>{
-        if(res.data.code===1){
-          this.$toast("修改成功")
-          this.user.sex=j+1;
-          localStorage.setItem("userInfo",JSON.stringify(this.user))
-        }
-      })
-    },
-    uploadImg(){
-      //点击图片，触发事件
-      this.$refs.uploadInput.click();
-    },
-    upload(event){
-      this.$indicator.open({
-        text:"上传中",
-        spinnerType: 'fading-circle'
-      });
-      lrz(event.target.files[0],{width:300,height:300}).then(rlt=>{
-        //上传
-        let formData=new FormData();
-        formData.append("id",this.user.id)
-        formData.append("file",rlt.file)
-        const instance=this.$axios.create({
-          withCredentials:true
-        })
-        let config = {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        };
-        instance.post('/upload',formData,config).then(res=>{
-          if(res.data.code===1){
-            this.user.headImg=res.data.headImg;
-            localStorage.setItem("userInfo",JSON.stringify(this.user))
-            this.$indicator.close();
-          }
-        })
       });
     }
   }
@@ -108,8 +43,7 @@ img{
   width: 70px;
   height:70px;
   border-radius:50%;
-  border:1px solid #ff0000;
-  margin:20px auto;
+  margin:60px auto 0;
 }
 .user-info{
   margin-top:50px;
