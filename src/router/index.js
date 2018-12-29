@@ -7,6 +7,7 @@ import Status from '@/components/Status/Status'
 import Source from '@/components/Source/Source'
 import Motor from '@/components/Source/Motor'
 import Device from '@/components/Source/Device'
+import EquipList from '@/components/Source/EquipList'
 import Inspect from '@/components/Inspect/Inspect'
 
 Vue.use(Router)
@@ -45,6 +46,10 @@ export default new Router({
         path:"device",
         name:"home.device",
         component:Device
+      },{
+        path:"equipList/:id",
+        name:"home.equipList",
+        component:EquipList
       }]
     }
   ]

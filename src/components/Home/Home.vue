@@ -31,12 +31,16 @@ export default {
   },
   created() {
     let name=this.$route.name;
+    console.log(name)
     switch (name) {
       case "home.motor":
         name="home.source"
         break;
       case "home.device":
-        name="home.device"
+        name="home.source"
+        break;
+      case "home.equipList":
+        name="home.source"
         break;
       default:
         break;
