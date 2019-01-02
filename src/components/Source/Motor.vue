@@ -92,10 +92,11 @@ export default {
     },
     equip(id,type){
       this.$router.push({
-        name:"home.device",
+        name:"home.source.device",
         query:{
           id:id,
-          type:type
+          type:type,
+          c:1
         }
       });
     },
@@ -104,7 +105,7 @@ export default {
     },
     main(){
       this.$router.push({
-        name:"home.equipList",
+        name:"home.source.equipList",
         params:{
           id:this.$route.params.id
         }

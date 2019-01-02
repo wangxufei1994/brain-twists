@@ -31,19 +31,11 @@ export default {
   },
   created() {
     let name=this.$route.name;
-    console.log(name)
-    switch (name) {
-      case "home.motor":
-        name="home.source"
-        break;
-      case "home.device":
-        name="home.source"
-        break;
-      case "home.equipList":
-        name="home.source"
-        break;
-      default:
-        break;
+    if(/^home.source.*$/.test(name)){
+      name="home.source"
+    }
+    if(/^home.inspect.*$/.test(name)){
+      name="home.inspect"
     }
     this.selected=name;
   },

@@ -4,7 +4,7 @@
         <mt-button icon="back" slot="left" @click.native="back">返回</mt-button>
       </mt-header>
       <!-- UPS信息 -->
-      <div v-if="type===4">
+      <div v-if="type===4 && c===1">
         <mt-field label="品牌" :value="data.brand" readonly disableClear></mt-field>
         <mt-field label="型号" :value="data.type" readonly disableClear></mt-field>
         <mt-field label="额定容量" :value="data.rate_capacity" readonly disableClear></mt-field>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <!-- 配电资源 -->
-      <div v-if="type===7">
+      <div v-if="type===7 && c===1">
         <mt-field label="配电柜品牌" :value="data.power_brand" readonly disableClear></mt-field>
         <mt-field label="开关品牌" :value="data.switch_brand" readonly disableClear></mt-field>
         <mt-field label="总功率" :value="data.total_power" readonly disableClear></mt-field>
@@ -29,7 +29,7 @@
         <mt-field label="使用功率" :value="data.use_capacity" readonly disableClear></mt-field>
       </div>
       <!-- 空调资源 -->
-      <div v-if="type===6">
+      <div v-if="type===6 && c===1">
         <mt-field label="品牌" :value="data.brand" readonly disableClear></mt-field>
         <mt-field label="型号" :value="data.type" readonly disableClear></mt-field>
         <mt-field label="类型" :value="data.user_type" readonly disableClear></mt-field>
@@ -47,7 +47,7 @@
         </div>
       </div>
       <!-- 电池资源 -->
-      <div v-if="type===8">
+      <div v-if="type===8 && c===1">
         <mt-field label="品牌" :value="data.brand" readonly disableClear></mt-field>
         <mt-field label="型号" :value="data.type" readonly disableClear></mt-field>
         <mt-field label="额定容量" :value="data.capacity" readonly disableClear></mt-field>
@@ -241,6 +241,35 @@
           <mt-field label="联系电话" :value="item.office_phone" readonly disableClear></mt-field>
         </div>
       </div>
+      <!-- 路由器 -->
+      <div v-if="type===4&&loaded&&c===''">
+        <mt-field label="设备编号" :value="data.number" readonly disableClear></mt-field>
+        <mt-field label="设备名称" :value="data.name" readonly disableClear></mt-field>
+        <mt-field label="购买时间" :value="data.buy_time" readonly disableClear></mt-field>
+        <mt-field label="维保到期" :value="data.main_time" readonly disableClear></mt-field>
+        <mt-field label="主备情况" :value="data.master_type | master" readonly disableClear></mt-field>
+        <mt-field label="品牌" :value="data.brand" readonly disableClear></mt-field>
+        <mt-field label="型号" :value="data.type" readonly disableClear></mt-field>
+        <mt-field label="管理地址" :value="data.manage_addr" readonly disableClear></mt-field>
+        <mt-field label="电源数量" :value="data.power_number" readonly disableClear></mt-field>
+        <div v-if="data.interfaceList.length>0">
+          <h4>
+            网络接口
+          </h4>
+          <div v-for="(k,index) in data.interfaceList" :key="index">
+            <mt-field label="类型" :value="k.kind  | netKind" readonly disableClear></mt-field>
+            <mt-field label="数量" :value="k.number" readonly disableClear></mt-field>
+          </div>
+        </div>
+        <mt-field label="背板带宽" :value="data.backband_unit  | diskUnit(data.backband_size)" readonly disableClear></mt-field>
+        <mt-field label="交换能力" :value="data.ability_nuit  | diskUnit(data.ability)" readonly disableClear></mt-field>
+        <mt-field label="供电方式" :value="data.power_type|powerType" readonly disableClear></mt-field>
+        <mt-field label="服务商" :value="data.facilitator_name" readonly disableClear></mt-field>
+        <div v-for="item in data.facilitator_info">
+          <mt-field label="联系人" :value="item.person_name" readonly disableClear></mt-field>
+          <mt-field label="联系电话" :value="item.office_phone" readonly disableClear></mt-field>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -251,7 +280,8 @@ export default {
       data:{},
       title:"详细信息",
       type:'',
-      loaded:false
+      loaded:false,
+      c:''
     }
   },
   methods: {
@@ -260,9 +290,8 @@ export default {
       data.id=this.$route.query.id;
       data.type=this.$route.query.type;
       data.uid=JSON.parse(localStorage.getItem("userInfo")).uid;
-
       let url="html/resource/resourceDetail";
-      if(data.type==3 || data.type==5 || data.type==1 || data.type==2){
+      if((data.type==3 || data.type==5 || data.type==1 || data.type==2 || data.type==4) &&(this.$route.query.c===undefined || this.$route.query.c!=1)){
         url="html/resource/deviceDetail"
       }
       this.$axios.post(url,data).then(res=>{
@@ -277,6 +306,38 @@ export default {
   created() {
     this.type=parseInt(this.$route.query.type);
     this.getDetail();
+    if(this.$route.query.c==1){
+      //是机柜的详情
+      this.c=1
+    }
+    switch (this.type) {
+      case 3:
+        this.title+='-存储设备'
+        break;
+      case 5:
+        this.title+='-网络安全设备'
+        break;
+      case 1:
+        this.title+='-服务器设备'
+        break;
+      case 2:
+        this.title+='-交换机设备'
+        break;
+      case 4:
+        this.c==1?this.title+='-UPS设备':this.title+='-路由器设备'
+        break;
+      case 6:
+        this.title+='-空调设备'
+        break;
+      case 7:
+        this.title+='-配电设备'
+        break;
+      case 8:
+        this.title+='-电池设备'
+        break;
+      default:
+        break;
+    }
   },
   filters:{
     //主备情况
@@ -418,23 +479,7 @@ export default {
         default:
           break;
       }
-    },
-    // //背板带宽
-    // backband(x,y){
-    //   switch (parseInt(x)) {
-    //     case 1:
-    //       return y+'Mbps'
-    //       break;
-    //     case 2:
-    //       return y+'Gbps'
-    //       break;
-    //     case 3:
-    //       return y+'Tbps'
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // }
+    }
   }
 }
 </script>

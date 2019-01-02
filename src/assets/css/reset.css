@@ -37,3 +37,37 @@ hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid 
 .isActive .mint-cell-allow-right::after{
     transform:translateY(-50%) rotate(135deg);
 }
+
+/* 单行显示，超出显示省略号 */
+.mint-cell-wrapper .mint-field-core,.ellipsis{
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+
+/* 上下边框 */
+.upDownLine:before{
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+    top: -1px;
+}
+.upDownLine:after{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}

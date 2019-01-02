@@ -3,7 +3,7 @@
       <mt-header fixed title="设备列表">
           <mt-button icon="back" slot="left" @click.native="back">返回</mt-button>
       </mt-header>
-      <mt-cell :title="item.name"  is-link :to="{name:'home.device',query:{id:item.id,type:item.type}}" v-if="data.data" v-for="(item,index) in data.data" :key="index"></mt-cell>
+      <mt-cell :title="item.name"  is-link :to="{name:'home.source.device',query:{id:item.id,type:item.type}}" v-if="data.data" v-for="(item,index) in data.data" :key="index"></mt-cell>
       <div class="null-data" v-if="data.Code==='0'">
           暂无数据
       </div>
