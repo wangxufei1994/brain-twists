@@ -25,6 +25,15 @@ export default {
         this.$router.push({
           name:"home.inspect.list"
         });
+      }else if(i==2){
+        this.$router.push({
+          name:"home.inspect.iList",
+          query:{
+            self:1,
+            //未完成是0   已完成是1
+            type:0
+          }
+        });
       }
     }
   },
