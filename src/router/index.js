@@ -1,18 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login/Login'
-import Home from '@/components/Home/Home'
-import My from '@/components/My/My'
-import Status from '@/components/Status/Status'
-import Source from '@/components/Source/Source'
-import Motor from '@/components/Source/Motor'
-import Device from '@/components/Source/Device'
-import EquipList from '@/components/Source/EquipList'
-import Inspect from '@/components/Inspect/Inspect'
-import InspectList from '@/components/Inspect/InspectList'
-import InspectDetail from '@/components/Inspect/InspectDetail'
-import iList from '@/components/Inspect/iList'
-import iDetail from '@/components/Inspect/iDetail'
+// import Login from '@/components/Login/Login'
+const Login=()=>import('@/components/Login/Login')
+// import Home from '@/components/Home/Home'
+const Home=()=>import('@/components/Home/Home')
+// import My from '@/components/My/My'
+const My=()=>import('@/components/My/My')
+// import Status from '@/components/Status/Status'
+const Status=()=>import('@/components/Status/Status')
+// import Source from '@/components/Source/Source'
+const Source=()=>import('@/components/Source/Source')
+// import Motor from '@/components/Source/Motor'
+const Motor=()=>import('@/components/Source/Motor')
+// import Device from '@/components/Source/Device'
+const Device=()=>import('@/components/Source/Device')
+// import EquipList from '@/components/Source/EquipList'
+const EquipList=()=>import('@/components/Source/EquipList')
+// import Inspect from '@/components/Inspect/Inspect'
+const Inspect=()=>import('@/components/Inspect/Inspect')
+// import InspectList from '@/components/Inspect/InspectList'
+const InspectList=()=>import('@/components/Inspect/InspectList')
+// import InspectDetail from '@/components/Inspect/InspectDetail'
+const InspectDetail=()=>import('@/components/Inspect/InspectDetail')
+// import iList from '@/components/Inspect/iList'
+const iList=()=>import('@/components/Inspect/iList')
+// import iDetail from '@/components/Inspect/iDetail'
+const iDetail=()=>import('@/components/Inspect/iDetail')
 
 Vue.use(Router)
 

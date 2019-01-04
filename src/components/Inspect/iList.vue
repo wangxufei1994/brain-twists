@@ -26,7 +26,7 @@
             </div>
         </li>
       </ul>
-      <div v-show="data.list && data.list.length===0" class="null-data">没有数据</div>
+      <div v-show="(!data.list) || data.list.length===0" class="null-data">没有数据</div>
       <!--底部判断是加载图标还是提示“全部加载”-->
       <div class="more_loading" v-show="!queryLoading">
         <mt-spinner class="icon-loading" type="snake" color="#00ccff" :size="20" v-show="moreLoading&&!allLoaded"></mt-spinner>

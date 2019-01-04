@@ -71,16 +71,21 @@ export default {
       data.pageSize=this.size;
       data.status=this.status;
       this.$axios.post('html/PollingManage/pollingList',data).then(res=>{
-        if(this.num==1){
-          this.data=res.data.data;
+        if(res.data.Code==="0"){
+          this.num=1;
+          this.data.list=[];
         }else{
-          this.data.list.concat(res.data.data.list);
+          if(this.num==1){
+            this.data=res.data.data;
+          }else{
+            this.data.list.concat(res.data.data.list);
+          }
+          this.total=res.data.data.total;
+          if(this.total<=this.num*this.size){
+            this.allLoaded=true
+          }
+          this.moreLoading=this.allLoaded;
         }
-        this.total=res.data.data.total;
-        if(this.total<=this.num*this.size){
-          this.allLoaded=true
-        }
-        this.moreLoading=this.allLoaded;
       })
     },
     filter(){

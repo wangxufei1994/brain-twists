@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-view class="container"></router-view>
-    <mt-tabbar v-model="selected" @click.native="select">
+    <mt-tabbar v-model="selected" @click.native="select" v-show="isShow">
       <mt-tab-item id="home.status">
         <i slot="icon" class="iconfont icon-zhinanzhen"></i>
         实时状态
@@ -26,7 +26,9 @@
 export default {
   data() {
     return {
-      selected:''
+      selected:'',
+      isShow:true,
+      clientHeight:document.body.clientHeight
     }
   },
   created() {
@@ -38,6 +40,15 @@ export default {
       name="home.inspect"
     }
     this.selected=name;
+  },
+  mounted() {
+    window.onresize=()=>{
+      if(document.body.clientHeight<this.clientHeight){
+        this.isShow=false;
+      }else{
+        this.isShow=true;
+      }
+    }
   },
   methods: {
     select(){
