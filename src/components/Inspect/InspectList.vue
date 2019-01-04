@@ -78,7 +78,7 @@ export default {
           if(this.num==1){
             this.data=res.data.data;
           }else{
-            this.data.list.concat(res.data.data.list);
+            this.data.list=this.data.list.concat(res.data.data.list);
           }
           this.total=res.data.data.total;
           if(this.total<=this.num*this.size){

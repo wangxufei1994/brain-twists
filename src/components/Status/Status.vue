@@ -13,7 +13,7 @@
             <mt-field :label="i.name" type="text" readonly></mt-field>
             <mt-field label="状态" type="text" :value="i.status" readonly></mt-field>
             <mt-field label="刷新时间" type="text" :value="i.flush_time" readonly></mt-field>
-            <mt-cell title="点击查看机房出入记录" is-link></mt-cell>
+            <mt-cell title="点击查看机房出入记录" is-link @click.native="access"></mt-cell>
           </div>
         </div>
         <!-- ups监控 -->
@@ -125,6 +125,11 @@ export default {
      let flag=this.showFlag[i];
      this.showFlag=[false,false,false,false,false,false,false,false,false,false];
      this.showFlag[i]=!flag;
+   },
+   access(){
+     this.$router.push({
+       name:"access"
+     })
    }
   },
   created(){

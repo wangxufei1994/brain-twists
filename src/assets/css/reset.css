@@ -49,6 +49,9 @@ hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid 
 
 
 /* 上下边框 */
+.upDownLine{
+    position:relative;
+}
 .upDownLine:before{
     position: absolute;
     right: 0;
