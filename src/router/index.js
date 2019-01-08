@@ -5,6 +5,8 @@ const Home=()=>import('@/components/Home/Home')
 const My=()=>import('@/components/My/My')
 const Status=()=>import('@/components/Status/Status')
 const Access=()=>import('@/components/Status/Access')
+const Apply=()=>import('@/components/Status/Apply')
+const Record=()=>import('@/components/Status/Record')
 const Source=()=>import('@/components/Source/Source')
 const Motor=()=>import('@/components/Source/Motor')
 const Device=()=>import('@/components/Source/Device')
@@ -14,6 +16,8 @@ const InspectList=()=>import('@/components/Inspect/InspectList')
 const InspectDetail=()=>import('@/components/Inspect/InspectDetail')
 const iList=()=>import('@/components/Inspect/iList')
 const iDetail=()=>import('@/components/Inspect/iDetail')
+const InspectAdd=()=>import('@/components/Inspect/InspectAdd')
+
 
 Vue.use(Router)
 
@@ -56,6 +60,10 @@ export default new Router({
         name:"home.inspect.iDetail",
         component:iDetail
       },{
+        path:"inspectAdd",
+        name:"home.inspect.add",
+        component:InspectAdd
+      },{
         path:"my",
         name:"home.my",
         component:My
@@ -76,6 +84,14 @@ export default new Router({
       path:"/access",
       name:"access",
       component:Access
+    },{
+      path:"/apply",
+      name:"apply",
+      component:Apply
+    },{
+      path:"/record",
+      name:"record",
+      component:Record
     }
   ]
 })

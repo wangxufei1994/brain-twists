@@ -74,6 +74,7 @@ export default {
       this.$axios.post(url,data).then(res=>{
         if(res.data.Code==="0"){
           this.data={};
+          this.allLoaded=false;
         }else{
           if(this.num==1){
             this.data=res.data.data;

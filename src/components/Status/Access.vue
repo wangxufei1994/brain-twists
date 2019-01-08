@@ -1,11 +1,12 @@
 <template>
   <div class="access">
-        <mt-header fixed title="设备列表">
+        <mt-header fixed title="机房出入记录">
             <mt-button icon="back" slot="left" @click.native="back">返回</mt-button>
+            <mt-button icon="more" slot="right" @click.native="right"></mt-button>
         </mt-header>
         <mt-field placeholder="根据姓名搜索" v-model="username" @input.native="search" class="input-search"></mt-field>
         <div class="filter upDownLine">
-            <mt-button type="default" @click.native="start">{{time1?time1:'开始时间'}}</mt-button><mt-button type="default" @click.native="stop">{{time2?time2:'结束时间'}}</mt-button><mt-button type="primary" @click.native="query">查询</mt-button>
+            <mt-button type="default" @click.native="start">{{time1?time1:'开始时间'}}</mt-button><div class="connect">-</div><mt-button type="default" @click.native="stop">{{time2?time2:'结束时间'}}</mt-button><mt-button type="primary" @click.native="query">查询</mt-button>
             <mt-datetime-picker
                 type="date"
                 ref="picker1"
@@ -24,7 +25,7 @@
             infinite-scroll-disabled="moreLoading"
             infinite-scroll-immediate-check="false"
             infinite-scroll-distance="10">
-            <mt-cell  v-for="item in data.list" :key="item.id" :title="item.time+'   '+item.content" is-link></mt-cell>
+            <mt-cell  v-for="item in data.list" :key="item.id" :title="item.time+'   '+item.content" ></mt-cell>
             <div v-show="(!data.list) || data.list.length===0" class="null-data">没有数据</div>
             <!--底部判断是加载图标还是提示“全部加载”-->
             <div class="more_loading" v-show="!queryLoading">
@@ -32,6 +33,10 @@
                 <span v-show="allLoaded">已全部加载</span>
             </div>
         </div>
+        <mt-actionsheet
+        :actions="rAction"
+        v-model="rVisible">
+        </mt-actionsheet>
   </div>
 </template>
 
@@ -53,7 +58,11 @@ export default {
         queryLoading:false,
         allLoaded:false,
         moreLoading:false,
-        data:{}
+        data:{},
+        rVisible:false,
+        rAction:[],
+        hasAudit:'',
+        showApply:''
     }
   },
   methods: {
@@ -72,10 +81,16 @@ export default {
     confirm1(){
         this.time1=this.dateFormat(this.start_time);
         this.num=1;
+        this.queryLoading=false
+        this.allLoaded=false
+        this.moreLoading=false
     },
     confirm2(){
         this.time2=this.dateFormat(this.finish_time);
         this.num=1;
+        this.queryLoading=false
+        this.allLoaded=false
+        this.moreLoading=false
     },
     getList(){
         let data={};
@@ -89,6 +104,7 @@ export default {
         this.$axios.post("html/monitor/personPassLog",data).then(res=>{
             if(res.data.Code==="0"){
                 this.data={};
+                this.allLoaded=false;
             }else{
                 if(this.num==1){
                     this.data=res.data.data;
@@ -101,6 +117,16 @@ export default {
                 }
                 this.moreLoading=this.allLoaded;
             }
+            this.hasAudit=res.data.hasAudit;
+            this.showApply=res.data.showApply;
+            let rAction=[];
+            if(parseInt(this.showApply)===1){
+                rAction.push({name:'申请',method:this.rLink})
+            }
+            if(parseInt(this.hasAudit)===1){
+                rAction.push({name:'申请记录',method:this.rLink})
+            }
+            this.rAction=rAction;
         })
     },
     loadMore(){
@@ -118,6 +144,9 @@ export default {
     search(){
         let _this=this;
         this.num=1;
+        this.queryLoading=false
+        this.allLoaded=false
+        this.moreLoading=false
         this.$nextTick(function(){
             _this.getList();
         })
@@ -131,6 +160,20 @@ export default {
             this.$toast("开始时间不能大于结束时间")
         }else{
             this.getList();
+        }
+    },
+    right(){
+        this.rVisible=true;
+    },
+    rLink(a,b){
+        if(a.name==="申请"){
+            this.$router.push({
+                name:"apply"
+            })
+        }else if(a.name==="申请记录"){
+            this.$router.push({
+                name:"record"
+            })
         }
     }
   },
@@ -159,10 +202,10 @@ export default {
     margin:0 10px;
     border-radius:0;
 }
-.filter button:nth-child(1),.filter button:nth-child(2){
+.filter button:nth-child(1),.filter button:nth-child(3){
     flex:2;
 }
-.filter button:nth-child(3){
+.filter button:nth-child(4){
     flex:1;
 }
 .input-search{
@@ -192,5 +235,9 @@ export default {
 .icon-loading{
   display: flex;
   justify-content: center;
+}
+.connect{
+    line-height:40px;
+    flex:.2;
 }
 </style>

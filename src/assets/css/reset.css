@@ -74,3 +74,9 @@ hr {height: .02rem;margin: .1rem 0;border: medium none;border-top: .02rem solid 
     transform: scaleY(.5);
     background-color: #c8c7cc;
 }
+
+
+/* pop  field */
+.field .mint-popup{
+    width:100%;
+}
